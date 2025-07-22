@@ -13,3 +13,7 @@ class OpenRouter(ChatOpenAI):
         alias="api_key",
         default_factory=secret_from_env("OPENROUTER_API_KEY", default=None)
     )
+
+    @property
+    def lc_secrets(self) -> dict[str, str]:
+        return {"openai_api_key": "OPENROUTER_API_KEY"}
