@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-class scraping:
+class Scraping:
     def __init__(self, content):
         self.raw_content = content
         self.parser_content = self.get_html_parser()
