@@ -7,3 +7,7 @@ class Scraping:
 
     def get_html_parser(self):
         return BeautifulSoup(self.raw_content, 'html.parser')
+
+    def techcrunch(self):
+        raw_notices = self.parser_content.find_all('ul', class_='wp-block-post-template')
+        print(raw_notices)
