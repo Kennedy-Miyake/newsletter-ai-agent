@@ -19,7 +19,17 @@ class ScrapingNews:
         
         print("Não existe site com esse nome!")
 
+    async def __get_content(self, url):
+        async with async_playwright() as p:
+            browser = await p.firefox.launch()
+            page = await browser.new_page()
+            await page.goto(url)
+            content = await page.content()
 
+            await browser.close()
+            
+            return content
+    
         notices = []
         
         for raw_notice in raw_notices:
