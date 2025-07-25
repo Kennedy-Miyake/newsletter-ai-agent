@@ -33,6 +33,9 @@ class ScrapingNews:
     async def __get_techcrunch_notices(self):
         notices = []
         
+        notices_content = await self.__get_content(self.__website_url)
+        notices_parser = BeautifulSoup(notices_content, 'html.parser')
+        raw_notices = notices_parser.find_all('li', class_='wp-block-post', limit=30)
         for raw_notice in raw_notices:
             category = raw_notice.find('div', class_='loop-card__cat-group').get_text(strip=True)
             title = raw_notice.find('h3', class_='loop-card__title').get_text(strip=True)
@@ -40,4 +43,4 @@ class ScrapingNews:
             time = raw_notice.find('time', class_='loop-card__time').get_text(strip=True)
             notices.append(dict({'Category': category, 'Title': title, 'Author': author, 'Time': time})) 
 
-        return notices
+        self.__notices = notices
