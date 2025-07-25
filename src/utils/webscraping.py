@@ -44,3 +44,9 @@ class ScrapingNews:
             notices.append(dict({'Category': category, 'Title': title, 'Author': author, 'Time': time})) 
 
         self.__notices = notices
+
+    def get_website_url(self):
+        return self.__website_url
+
+    def get_notices(self):
+        return self.__notices
