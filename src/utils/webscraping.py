@@ -1,10 +1,20 @@
 from bs4 import BeautifulSoup
+from playwright.async_api import async_playwright
 
 class ScrapingNews:
 
     __website_url = None
     __notices = []
     
+    def __get_website_url(self, website_name):
+        websites = dict({
+            'TechCrunch': 'https://techcrunch.com/category/artificial-intelligence/'
+        })
+
+        if website_name in websites.keys():
+            return websites[website_name]
+        
+        print("Não existe site com esse nome!")
 
 
         notices = []
