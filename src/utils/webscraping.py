@@ -69,6 +69,18 @@ class ScrapingNews:
 
         return news
 
+    async def __get_techcrunch_news(self):
+        async with async_playwright() as p:
+            browser = await p.firefox.launch()
+            page = await browser.new_page()
+            await page.goto(self.__website_url)
+            
+            selected_news = await self.select_news() 
+
+            await page.get_by_role('link', name=selected_news['Title']).click()
+            print(page.url)
+
+            await browser.close()
     def get_website_url(self):
         return self.__website_url
 
