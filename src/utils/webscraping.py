@@ -30,6 +30,7 @@ class ScrapingNews:
             
             return content
     
+    async def __get_techcrunch_notices(self):
         notices = []
         
         for raw_notice in raw_notices:
