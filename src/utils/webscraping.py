@@ -30,6 +30,25 @@ class ScrapingNews:
             
             return content
     
+    async def select_notice(self):
+        selected_notice = dict()
+
+        self.__notices = await self.__fetch_techcrunch_notices()
+
+        i = 0
+        for notice in self.__notices:
+            (category, title, author, time) = notice.values()
+            print(f'{i} | {category} | {title}')
+            print(f'{author} | {time}\n')
+            i += 1
+
+        select_notice = int(input(f'Qual notícia você deseja selecionar (0-{(len(self.__notices))-1})? R: '))
+        if (select_notice >= 0) and (select_notice <= len(self.__notices)):
+            selected_notice = self.__notices[select_notice]
+            return selected_notice
+
+        print(f'Notícia não encontrada!')
+        
     async def __fetch_techcrunch_notices(self):
         notices = []
         
