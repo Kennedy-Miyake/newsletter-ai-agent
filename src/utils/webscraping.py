@@ -1,3 +1,4 @@
+import time
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
@@ -78,9 +79,30 @@ class ScrapingNews:
             selected_news = await self.select_news() 
 
             await page.get_by_role('link', name=selected_news['Title']).click()
-            print(page.url)
 
+            time.sleep(0.5)
+            raw_content = await page.content()
+            parser = BeautifulSoup(raw_content, 'html.parser')
+
+            news = parser.find('div', class_='wp-block-post-content')
+            remove_elements = news.find_all('div')
+            for r_element in remove_elements:
+                r_element.extract()
+
+            all_content = news.find_all(True)
+
+            for content in all_content:
+                if content.name == 'h2':
+                    print(f'Title: ' + content.get_text(strip=True))
+                    continue
+                elif content.name == 'h3':
+                    print(f'Subtitle:' + content.get_text(strip=True))
+                    continue
+                
+                print(content.get_text(strip=True))
+                
             await browser.close()
+
     def get_website_url(self):
         return self.__website_url
 
