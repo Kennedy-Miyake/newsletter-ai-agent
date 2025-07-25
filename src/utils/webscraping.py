@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 
 class ScrapingNews:
 
+    __website_url = None
+    __notices = []
     
 
 
