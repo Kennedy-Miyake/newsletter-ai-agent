@@ -5,6 +5,9 @@ class ScrapingNews:
 
     __website_url = None
     __notices = []
+
+    def __init__(self, website_name):
+        self.__website_url = self.__get_website_url(website_name)
     
     def __get_website_url(self, website_name):
         websites = dict({
