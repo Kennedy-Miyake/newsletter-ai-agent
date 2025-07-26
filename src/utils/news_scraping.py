@@ -2,7 +2,7 @@ import time
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
-class ScrapingNews:
+class NewsScraping:
 
     __website_url = None
     __news = []
