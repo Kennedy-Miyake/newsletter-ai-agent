@@ -30,6 +30,9 @@ class NewsScraping:
             if website_name in websites:
                 self.__website_url = websites[website_name]
                 return
+
+    def get_website_url(self) -> str:
+        return self.__website_url
     
     async def __get_content(self, url):
         async with async_playwright() as p:
