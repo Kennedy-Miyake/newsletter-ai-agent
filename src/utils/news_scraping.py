@@ -14,11 +14,13 @@ class NewsScraping:
         'techcrunch': techcrunch_strategy.TechCrunchScrapingStrategy()
     })
 
+    __strategy = dict({})
     __website = dict({})
     __news = []
 
     def __init__(self, website_name: str = 'Auto'):
         self.__website = self.set_website(website_name)
+        self.__register_strategy()
     
     def set_website(self, website_name: str = 'None'):
         website_name = website_name.lower()
@@ -42,6 +44,14 @@ class NewsScraping:
 
     def get_website_url(self) -> str:
         return self.__website
+
+    def __register_strategy(self):
+        domain = next(iter(self.__website))
+        if domain in self.__default_strategies:
+            self.__strategy = dict({
+                domain: self.__default_strategies[domain]
+            })
+            return
     
     async def __get_content(self, url):
         async with async_playwright() as p:
