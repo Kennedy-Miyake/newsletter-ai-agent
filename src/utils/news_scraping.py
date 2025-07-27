@@ -9,21 +9,34 @@ class NewsScraping:
         'auto': 'Auto',
         'techcrunch': 'https://techcrunch.com/category/artificial-intelligence/'
     })
+    __website = dict({})
     __news = []
 
     def __init__(self, website_name: str = 'Auto'):
+        self.__website = self.set_website(website_name)
     
     def set_website(self, website_name: str = 'None'):
         website_name = website_name.lower()
 
+        if website_name in self.__default_websites.keys():
+            return dict({
+                website_name: self.__default_websites[website_name]
+            })
 
         while True:
+            for name in self.__default_websites:
+                print(f'{name} - URL: {self.__default_websites[name]}')
             
             website_name = str(input(f'Selecione qual site você deseja obter as notícias:'))
 
+            if website_name in self.__default_websites:
+                self.__website = dict({
+                    website_name: self.__default_websites[website_name]
+                })
                 return
 
     def get_website_url(self) -> str:
+        return self.__website
     
     async def __get_content(self, url):
         async with async_playwright() as p:
