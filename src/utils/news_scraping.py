@@ -7,6 +7,8 @@ class NewsScraping:
     __website_url = None
     __news = []
 
+    def __init__(self, website_name: str = 'Auto'):
+        self.__website_url = self.set_website(website_name)
     
     def set_website(self, website_name: str = 'None'):
         website_name = website_name.lower()
