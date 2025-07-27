@@ -2,7 +2,7 @@ from abc import (ABC, abstractmethod)
 
 class ScrapingStrategy(ABC):
     @abstractmethod
-    def scrape_all_news(self):
+    def scrape_all_news(self, parser):
         pass
 
     def scrape_news_content(self):
