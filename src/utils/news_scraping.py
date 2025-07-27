@@ -52,6 +52,11 @@ class NewsScraping:
                 domain: self.__default_strategies[domain]
             })
             return
+
+    async def parser_html(self, page):
+        content = await page.content()
+        return BeautifulSoup(content, 'html.parser')
+
     
     async def __get_content(self, url):
         async with async_playwright() as p:
@@ -113,4 +118,3 @@ class NewsScraping:
                     continue
                 
                 print(content.get_text(strip=True))
-                
