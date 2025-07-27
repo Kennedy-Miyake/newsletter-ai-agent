@@ -5,6 +5,8 @@ class ScrapingStrategy(ABC):
         return await page.content()
 
     @abstractmethod
+    def scrape_all_news(self):
         pass
 
+    def scrape_news_content(self):
         pass
