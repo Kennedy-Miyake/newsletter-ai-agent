@@ -44,7 +44,8 @@ class NewsScraping:
                 return
 
     def get_website_url(self) -> str:
-        return self.__website
+        domain = next(iter(self.__website))
+        return self.__website[domain]
 
     def __register_strategy(self):
         domain = next(iter(self.__website))
