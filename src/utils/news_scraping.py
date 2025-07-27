@@ -7,19 +7,28 @@ class NewsScraping:
     __website_url = None
     __news = []
 
-    def __init__(self, website_name):
-        self.__website_url = self.__get_website_url(website_name)
     
-    def __get_website_url(self, website_name):
+    def set_website(self, website_name: str = 'None'):
+        website_name = website_name.lower()
+
         websites = dict({
-            'TechCrunch': 'https://techcrunch.com/category/artificial-intelligence/'
+            'auto': 'Auto',
+            'techcrunch': 'https://techcrunch.com/category/artificial-intelligence/'
         })
 
         if website_name in websites.keys():
             return websites[website_name]
-        
-        print("Não existe site com esse nome!")
 
+        while True:
+            for name in websites:
+                print(f'{name} - URL: {websites[name]}')
+            
+            website_name = str(input(f'Selecione qual site você deseja obter as notícias:'))
+
+            if website_name in websites:
+                self.__website_url = websites[website_name]
+                return
+    
     async def __get_content(self, url):
         async with async_playwright() as p:
             browser = await p.firefox.launch()
