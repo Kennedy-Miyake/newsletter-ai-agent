@@ -55,27 +55,14 @@ class NewsScraping:
             })
             return
 
-    async def parser_html(self, page):
         content = await page.content()
         return BeautifulSoup(content, 'html.parser')
 
     async def fetch_news(self, page):
         strategy = next(iter(self.__strategy.values()))
-        parser = await self.parser_html(page)
 
         self.__news = strategy.scrape_all_news(parser)
         print(self.__news)
-    
-    async def __get_content(self, url):
-        async with async_playwright() as p:
-            browser = await p.firefox.launch()
-            page = await browser.new_page()
-            await page.goto(url)
-            content = await page.content()
-
-            await browser.close()
-            
-            return content
     
     async def select_news(self):
         selected_news = dict()
