@@ -1,38 +1,29 @@
 import time
+import src.scraping_strategies as ss
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
 class NewsScraping:
 
-    __website_url = None
+    __default_websites = dict({
+        'auto': 'Auto',
+        'techcrunch': 'https://techcrunch.com/category/artificial-intelligence/'
+    })
     __news = []
 
     def __init__(self, website_name: str = 'Auto'):
-        self.__website_url = self.set_website(website_name)
     
     def set_website(self, website_name: str = 'None'):
         website_name = website_name.lower()
 
-        websites = dict({
-            'auto': 'Auto',
-            'techcrunch': 'https://techcrunch.com/category/artificial-intelligence/'
-        })
-
-        if website_name in websites.keys():
-            return websites[website_name]
 
         while True:
-            for name in websites:
-                print(f'{name} - URL: {websites[name]}')
             
             website_name = str(input(f'Selecione qual site você deseja obter as notícias:'))
 
-            if website_name in websites:
-                self.__website_url = websites[website_name]
                 return
 
     def get_website_url(self) -> str:
-        return self.__website_url
     
     async def __get_content(self, url):
         async with async_playwright() as p:
