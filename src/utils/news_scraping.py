@@ -115,10 +115,3 @@ class NewsScraping:
                 
                 print(content.get_text(strip=True))
                 
-            await browser.close()
-
-    def get_website_url(self):
-        return self.__website_url
-
-    def get_news(self):
-        return self.__news
