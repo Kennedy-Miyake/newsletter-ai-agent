@@ -83,26 +83,6 @@ class NewsScraping:
 
         print(f'Notícia não encontrada!')
         
-    async def __fetch_techcrunch_news(self):
-        news = []
-        
-        news_content = await self.__get_content(self.__website_url)
-        news_parser = BeautifulSoup(news_content, 'html.parser')
-        raw_news = news_parser.find_all('li', class_='wp-block-post', limit=30)
-        for raw_news in raw_news:
-            category = raw_news.find('div', class_='loop-card__cat-group').get_text(strip=True)
-            title = raw_news.find('h3', class_='loop-card__title').get_text(strip=True)
-            author = raw_news.find('ul', class_='loop-card__author-list').get_text(strip=True)
-            time = raw_news.find('time', class_='loop-card__time').get_text(strip=True)
-            news.append(dict({
-                'Category': category,
-                'Title': title,
-                'Author': author,
-                'Time': time
-            })) 
-
-        return news
-
     async def __get_techcrunch_news(self):
         async with async_playwright() as p:
             browser = await p.firefox.launch()
