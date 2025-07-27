@@ -1,5 +1,5 @@
 import time
-import src.scraping_strategies as ss
+from src.scraping_strategies import (techcrunch_strategy)
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
@@ -9,6 +9,11 @@ class NewsScraping:
         'auto': 'Auto',
         'techcrunch': 'https://techcrunch.com/category/artificial-intelligence/'
     })
+    __default_strategies = dict({
+        'auto': None,
+        'techcrunch': techcrunch_strategy.TechCrunchScrapingStrategy()
+    })
+
     __website = dict({})
     __news = []
 
