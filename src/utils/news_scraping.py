@@ -1,5 +1,6 @@
 import time
-from src.scraping_strategies import (techcrunch_strategy)
+from src.scraping_strategies.scraping_strategy import ScrapingStrategy
+from src.scraping_strategies import techcrunch_strategy
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
@@ -57,6 +58,12 @@ class NewsScraping:
         content = await page.content()
         return BeautifulSoup(content, 'html.parser')
 
+    async def fetch_news(self, page):
+        strategy = next(iter(self.__strategy.values()))
+        parser = await self.parser_html(page)
+
+        self.__news = strategy.scrape_all_news(parser)
+        print(self.__news)
     
     async def __get_content(self, url):
         async with async_playwright() as p:
