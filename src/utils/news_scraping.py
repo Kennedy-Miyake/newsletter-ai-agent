@@ -66,25 +66,6 @@ class NewsScraping:
         self.__news = strategy.scrape_all_news(parser)
         print(self.__news)
     
-    async def select_news(self):
-        selected_news = dict()
-
-        self.__news = await self.__fetch_techcrunch_news()
-
-        i = 0
-        for news in self.__news:
-            (category, title, author, time) = news.values()
-            print(f'{i} | {category} | {title}')
-            print(f'{author} | {time}\n')
-            i += 1
-
-        select_news = int(input(f'Qual notícia você deseja selecionar (0-{(len(self.__news))-1})? R: '))
-        if (select_news >= 0) and (select_news <= len(self.__news)):
-            selected_news = self.__news[select_news]
-            return selected_news
-
-        print(f'Notícia não encontrada!')
-        
     async def __get_techcrunch_news(self):
         async with async_playwright() as p:
             browser = await p.firefox.launch()

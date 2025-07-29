@@ -18,6 +18,24 @@ class TechCrunchScrapingStrategy(ScrapingStrategy):
             })) 
 
         return news
+    
+    def select_news(self, all_news):
+        selected_news = dict({})
+
+        i = 0
+        for news in all_news:
+            (category, title, author, time) = news.values()
+            print(f'{i} | {category} | {title}')
+            print(f'{author} | {time}\n')
+            i += 1
+
+        while True:
+            select_news = int(input(f'Qual notícia você deseja selecionar (0-{(len(all_news))-1})? R: '))
+            if (select_news >= 0) and (select_news <= len(all_news)):
+                selected_news = all_news[select_news]
+                return selected_news
+
+            print(f'Notícia não encontrada!')
 
     def scrape_news_content(self):
         pass
