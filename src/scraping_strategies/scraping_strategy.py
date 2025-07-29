@@ -8,5 +8,5 @@ class ScrapingStrategy(ABC):
     def select_news(self, all_news):
         pass
 
-    def scrape_news_content(self):
+    def scrape_news_content(self, parser):
         pass
