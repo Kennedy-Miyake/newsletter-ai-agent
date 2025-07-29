@@ -77,4 +77,5 @@ class NewsScraping:
         strategy = next(iter(self.__strategy.values()))
         parser = await self.__parser_html(page)
         
-        strategy.scrape_news_content(parser)
+        article = strategy.scrape_news_content(parser)
+        return article
