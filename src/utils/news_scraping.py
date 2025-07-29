@@ -72,3 +72,9 @@ class NewsScraping:
 
         await page.get_by_role('link', name=selected_news['Title']).click()
         time.sleep(0.5)
+    
+    async def display_news(self, page):
+        strategy = next(iter(self.__strategy.values()))
+        parser = await self.__parser_html(page)
+        
+        strategy.scrape_news_content(parser)
