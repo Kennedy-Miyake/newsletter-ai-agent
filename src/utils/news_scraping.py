@@ -66,6 +66,12 @@ class NewsScraping:
         self.__news = strategy.scrape_all_news(parser)
         print(self.__news)
     
+    async def goto_news(self, page):
+        strategy = next(iter(self.__strategy.values()))
+        selected_news = strategy.select_news(self.__news)
+
+        await page.get_by_role('link', name=selected_news['Title']).click()
+        time.sleep(0.5)
     async def __get_techcrunch_news(self):
         async with async_playwright() as p:
             browser = await p.firefox.launch()
