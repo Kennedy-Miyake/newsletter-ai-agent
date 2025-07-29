@@ -64,7 +64,6 @@ class NewsScraping:
         parser = await self.__parser_html(page)
 
         self.__news = strategy.scrape_all_news(parser)
-        print(self.__news)
     
     async def goto_news(self, page):
         strategy = next(iter(self.__strategy.values()))
