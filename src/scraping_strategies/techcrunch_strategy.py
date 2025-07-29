@@ -37,5 +37,20 @@ class TechCrunchScrapingStrategy(ScrapingStrategy):
 
             print(f'Notícia não encontrada!')
 
-    def scrape_news_content(self):
-        pass
+    def scrape_news_content(self, parser):
+        news = parser.find('div', class_='wp-block-post-content')
+        remove_elements = news.find_all('div')
+        for element in remove_elements:
+            element.extract()
+
+        all_content = news.find_all(True)
+
+        for content in all_content:
+            if content.name == 'h2':
+                print(f'Title: ' + content.get_text(strip=True))
+                continue
+            elif content.name == 'h3':
+                print(f'Subtitle:' + content.get_text(strip=True))
+                continue
+            
+            print(content.get_text(strip=True))
