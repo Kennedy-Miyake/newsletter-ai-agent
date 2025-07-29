@@ -45,12 +45,15 @@ class TechCrunchScrapingStrategy(ScrapingStrategy):
 
         all_content = news.find_all(True)
 
+        full_content = ""
         for content in all_content:
             if content.name == 'h2':
-                print(f'Title: ' + content.get_text(strip=True))
+                full_content += (f'Title: ' + content.get_text(strip=True) + '\n')
                 continue
             elif content.name == 'h3':
-                print(f'Subtitle:' + content.get_text(strip=True))
+                full_content += (f'Subtitle:' + content.get_text(strip=True) + '\n')
                 continue
-            
-            print(content.get_text(strip=True))
+
+            full_content += (content.get_text(strip=True) + '\n')
+        
+        return full_content
