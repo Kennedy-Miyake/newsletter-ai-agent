@@ -72,33 +72,3 @@ class NewsScraping:
 
         await page.get_by_role('link', name=selected_news['Title']).click()
         time.sleep(0.5)
-    async def __get_techcrunch_news(self):
-        async with async_playwright() as p:
-            browser = await p.firefox.launch()
-            page = await browser.new_page()
-            await page.goto(self.__website_url)
-            
-            selected_news = await self.select_news() 
-
-            await page.get_by_role('link', name=selected_news['Title']).click()
-
-            time.sleep(0.5)
-            raw_content = await page.content()
-            parser = BeautifulSoup(raw_content, 'html.parser')
-
-            news = parser.find('div', class_='wp-block-post-content')
-            remove_elements = news.find_all('div')
-            for r_element in remove_elements:
-                r_element.extract()
-
-            all_content = news.find_all(True)
-
-            for content in all_content:
-                if content.name == 'h2':
-                    print(f'Title: ' + content.get_text(strip=True))
-                    continue
-                elif content.name == 'h3':
-                    print(f'Subtitle:' + content.get_text(strip=True))
-                    continue
-                
-                print(content.get_text(strip=True))
