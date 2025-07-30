@@ -26,3 +26,14 @@ class Summarizer:
 
     def __init__(self, llm):
         self.__summarization_chain = self.__PROMPT_TEMPLATE | llm | StrOutputParser()
+
+    def summarize(self, article):
+        output = self.__summarization_chain.invoke({
+            "input":
+                f"""
+                [ARTICLE]:
+                {article}
+                """
+        })
+
+        self.__summary = output
