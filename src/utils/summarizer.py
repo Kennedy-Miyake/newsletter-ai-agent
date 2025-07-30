@@ -41,3 +41,6 @@ class Summarizer:
         })
 
         self.__summary = output
+
+    def get_summary(self):
+        return self.__summary
