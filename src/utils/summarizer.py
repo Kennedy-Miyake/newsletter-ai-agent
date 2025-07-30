@@ -20,4 +20,6 @@ class Summarizer:
             {input}
             """)
         ])
+
     __summarization_chain = None
+    __summary = None
