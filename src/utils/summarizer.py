@@ -23,3 +23,6 @@ class Summarizer:
 
     __summarization_chain = None
     __summary = None
+
+    def __init__(self, llm):
+        self.__summarization_chain = self.__PROMPT_TEMPLATE | llm | StrOutputParser()
